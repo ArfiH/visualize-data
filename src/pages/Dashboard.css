@@ -1,0 +1,96 @@
+/* Dashboard grid layout */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(18.75rem, 1fr));
+  gap: 2rem;
+  padding: 1rem;
+}
+
+/* Card styles */
+.analytics-card, .average-daily-sales, .sales-overview, .earning-reports, .support-tracker {
+  background-color: #fff;
+  padding: 2rem;
+  border: 1px solid #e6e6e6;
+  border-radius: 0.625rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.analytics-card h3, .average-daily-sales h3, .sales-overview h3, .earning-reports h3, .support-tracker h3 {
+  margin-top: 0;
+  color: #333;
+}
+
+.analytics-card p, .average-daily-sales p {
+  margin: 0.5rem 0;
+  color: #666;
+}
+
+.analytics-stats {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1.25rem;
+}
+
+.analytics-stats div {
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 0.625rem;
+  border-radius: 0.3125rem;
+}
+
+.average-daily-sales h1 {
+  margin: 0.625rem 0;
+  color: #333;
+}
+
+.sales-overview svg, .earning-reports svg {
+  width: 100%;
+  height: 12.5rem;
+}
+
+.sales-overview .sales-trend {
+  margin-top: 0.625rem;
+}
+
+.earning-reports {
+  position: relative;
+}
+
+.earning-reports .earning-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.25rem;
+}
+
+.earning-reports .earning-stats div {
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 0.625rem;
+  border-radius: 0.3125rem;
+}
+
+.support-tracker {
+  text-align: center;
+}
+
+.support-tracker h1 {
+  margin: 0.625rem 0;
+  color: #333;
+}
+
+.support-tracker .tracker-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 1.25rem;
+}
+
+.support-tracker .tracker-stats div {
+  text-align: center;
+  background-color: #f8f9fa;
+  padding: 0.625rem;
+  border-radius: 0.3125rem;
+}
+
+.support-tracker .completed-task {
+  margin-top: 1.25rem;
+}
