@@ -3,7 +3,6 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 
 const app = express();
-
 app.use(express.json());
 app.use(cors({
   origin: "*",
@@ -19,6 +18,7 @@ mongoose.connect('mongodb://localhost:27017/assessment', {
   process.exit(1);
 });
 
+// Define the schema based on your JSON data structure
 const dataSchema = new mongoose.Schema({
   end_year: String,
   intensity: Number,
@@ -37,16 +37,17 @@ const dataSchema = new mongoose.Schema({
   source: String,
   title: String,
   likelihood: Number
-});
+}, { collection: 'datas' }); // Use the 'datas' collection
 
 const Data = mongoose.model('Data', dataSchema);
 
 app.get('/data', async (req, res) => {
   try {
     const data = await Data.find();
+    console.log("Fetched data from MongoDB:", data); // Log fetched data
     res.json(data);
   } catch (err) {
-    console.error(err);
+    console.error("Error fetching data:", err);
     res.status(500).json({ message: 'Server error' });
   }
 });
