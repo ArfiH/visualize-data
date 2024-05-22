@@ -8,13 +8,6 @@ const App = () => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // useEffect(() => {
-  //   fetch('http://localhost:5173/data')
-  //     .then(response => response.json())
-  //     .then(data => setData(data))  
-  //     .catch(error => console.error(error));
-  // }, []);
-
   useEffect(() => {
     axios.get('http://localhost:5173/data')
       .then(response => {
@@ -48,14 +41,6 @@ const App = () => {
         </div>
         <div className="profile">
           <img src="/profile.jpg" alt="Profile" />
-          {/* Mongo data */}
-          <h1>Data from MongoDB</h1>
-            <h3> {loading ? 'Loading...' : 'Loaded' } </h3>
-            <ul>
-              {data.map((item, index) => (
-                <li key={index}>{JSON.stringify(item)}</li>
-              ))}
-            </ul>
         </div>
       </div>
       <div className={`sidebar ${sidebarOpen ? 'mobile visible' : 'mobile'}`}>
