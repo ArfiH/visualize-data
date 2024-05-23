@@ -18,7 +18,6 @@ const IntensityChart = () => {
 
   useEffect(() => {
     if (data.length === 0) return;
-
     const svg = d3.select(svgRef.current);
     const width = 600;
     const height = 300;

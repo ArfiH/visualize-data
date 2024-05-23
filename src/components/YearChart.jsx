@@ -21,7 +21,7 @@ const YearChart = () => {
     if (data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 800;
+    const width = 600;
     const height = 400;
     const margin = { top: 20, right: 30, bottom: 100, left: 50 };
 
@@ -72,7 +72,7 @@ const YearChart = () => {
       .datum(groupedData)
       .attr("fill", "none")
       .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
+      .attr("strokeWidth", 1.5)
       .attr("d", line);
 
     // Add circles with tooltips
@@ -115,7 +115,7 @@ const YearChart = () => {
           End Year
         </label>
       </div>
-      <svg ref={svgRef} width="800" height="400"></svg>
+      <svg ref={svgRef} width="600" height="400"></svg>
     </div>
   );
 };
