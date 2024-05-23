@@ -20,7 +20,7 @@ const StackedBarChart = () => {
     if (data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 1000;
+    const width = 1200;
     const height = 500;
     const margin = { top: 20, right: 150, bottom: 100, left: 60 };
 
@@ -129,7 +129,7 @@ const StackedBarChart = () => {
   }, [data]);
 
   return (
-    <svg ref={svgRef} width="1000" height="500"></svg>
+    <svg ref={svgRef} width="1200" height="500"></svg>
   );
 };
 

@@ -12,12 +12,12 @@ const Dashboard = () => {
   return (
     <div className="dashboard">
       <div className="likelihood">
-        <h3>Likelihood</h3>
+        <h3>Likelihood analysis</h3>
         <LikelihoodChart />
       </div>
       
       <div className="intensity">
-        <h3>Intensity</h3>
+        <h3>Intensity analysis</h3>
         <IntensityChart />
       </div>
 
@@ -27,23 +27,23 @@ const Dashboard = () => {
       </div>
       
       <div className="year">
-        <h3>Year wise</h3>
+        <h3>Year vs Pestle</h3>
         <YearChart />
       </div>
       
       <div className="relevance">
-        <h3>Relevance</h3>
+        <h3>Relevance analysis</h3>
         <RelevanceChart />
       </div>
 
       <div className="country">
-        <h3>Country wise</h3>
+        <h3>Country analysis</h3>
         <StackedBarChart />
       </div>
 
       
       <div className="region">
-        <h3>Region wise</h3>
+        <h3>Count of sector in every region</h3>
         <RegionChart />
       </div>
       

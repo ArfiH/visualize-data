@@ -20,7 +20,7 @@ const IntensityChart = () => {
     if (data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 800;
+    const width = 600;
     const height = 300;
     const margin = { top: 20, right: 30, bottom: 40, left: 50 };
 
@@ -59,7 +59,7 @@ const IntensityChart = () => {
   }, [data]);
 
   return (
-    <svg ref={svgRef} width={"100%"} height={400}></svg>
+    <svg ref={svgRef} width={600} height={400}></svg>
   );
 };
 

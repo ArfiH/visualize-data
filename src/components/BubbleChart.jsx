@@ -20,8 +20,8 @@ const BubbleChart = () => {
     if (data.length === 0) return;
 
     const svg = d3.select(svgRef.current);
-    const width = 1000;
-    const height = 600;
+    const width = 1200;
+    const height = 500;
 
     svg.selectAll("*").remove(); // Clear previous chart
 
@@ -96,7 +96,7 @@ const BubbleChart = () => {
   }, [data]);
 
   return (
-    <svg ref={svgRef} width="1000" height="600"></svg>
+    <svg ref={svgRef} width="1200" height="600"></svg>
   );
 };
 
