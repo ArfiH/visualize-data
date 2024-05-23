@@ -18,7 +18,7 @@ const BubbleChart = () => {
 
   useEffect(() => {
     if (data.length === 0) return;
-
+    
     const svg = d3.select(svgRef.current);
     const width = 1200;
     const height = 500;
@@ -56,7 +56,7 @@ const BubbleChart = () => {
       .attr("r", d => sizeScale(d.intensity))
       .attr("fill", "steelblue")
       .attr("stroke", "black")
-      .attr("stroke-width", 1.5);
+      .attr("strokeWidth", 1.5);
 
     // Add tooltip
     const tooltip = d3.select("body").append("div")

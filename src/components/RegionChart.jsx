@@ -71,7 +71,7 @@ const RegionChart = () => {
       .datum(groupedData)
       .attr("fill", "none")
       .attr("stroke", "steelblue")
-      .attr("stroke-width", 1.5)
+      .attr("strokeWidth", 1.5)
       .attr("d", line);
 
     // Add circles with tooltips
