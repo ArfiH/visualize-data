@@ -32,21 +32,21 @@ const YearChart = () => {
       yearDifference: d.end_year && d.start_year ? d.end_year - d.start_year : null
     })).filter(d => d.pestle && d.yearDifference !== null); // Filter out invalid data
 
-    // Group data by pestle
+    // Group data by pestle and calculate mean year difference
     const groupedData = d3.rollups(
       parsedData,
       v => d3.mean(v, d => d.yearDifference),
       d => d.pestle
-    );
+    ).map(([key, value]) => ({ pestle: key, meanYearDifference: value }));
 
     // Create scales
     const x = d3.scaleBand()
-      .domain(groupedData.map(d => d[0]))
+      .domain(groupedData.map(d => d.pestle))
       .range([margin.left, width - margin.right])
       .padding(0.1);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(groupedData, d => d[1])]).nice()
+      .domain([0, d3.max(groupedData, d => d.meanYearDifference)]).nice()
       .range([height - margin.bottom, margin.top]);
 
     // Create axes
@@ -62,17 +62,29 @@ const YearChart = () => {
       .call(d3.axisLeft(y))
       .call(g => g.select(".domain").remove());
 
+    // Draw line
+    const line = d3.line()
+      .x(d => x(d.pestle) + x.bandwidth() / 2)
+      .y(d => y(d.meanYearDifference));
+
+    svg.append("path")
+      .datum(groupedData)
+      .attr("fill", "none")
+      .attr("stroke", "steelblue")
+      .attr("stroke-width", 1.5)
+      .attr("d", line);
+
+    // Add circles with tooltips
     svg.append("g")
-      .selectAll("rect")
+      .selectAll("circle")
       .data(groupedData)
-      .join("rect")
-      .attr("x", d => x(d[0]))
-      .attr("y", d => y(d[1]))
-      .attr("height", d => y(0) - y(d[1]))
-      .attr("width", x.bandwidth())
+      .join("circle")
+      .attr("cx", d => x(d.pestle) + x.bandwidth() / 2)
+      .attr("cy", d => y(d.meanYearDifference))
+      .attr("r", 5)
       .attr("fill", "steelblue")
       .append("title")  // Tooltip
-      .text(d => `Pestle: ${d[0]}\nYear Difference: ${d[1].toFixed(2)}`);
+      .text(d => `Pestle: ${d.pestle}\nMean Year Difference: ${d.meanYearDifference.toFixed(2)}`);
 
     svg.append("g").call(xAxis);
     svg.append("g").call(yAxis);
