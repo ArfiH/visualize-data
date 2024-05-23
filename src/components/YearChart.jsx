@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 
 const YearChart = () => {
   const [data, setData] = useState([]);
+  const [yearType, setYearType] = useState('start_year');
   const svgRef = useRef();
 
   useEffect(() => {
@@ -26,18 +27,18 @@ const YearChart = () => {
 
     svg.selectAll("*").remove(); // Clear previous chart
 
-    // Parse data and calculate year difference
+    // Parse data
     const parsedData = data.map(d => ({
       pestle: d.pestle,
-      yearDifference: d.end_year && d.start_year ? d.end_year - d.start_year : null
-    })).filter(d => d.pestle && d.yearDifference !== null); // Filter out invalid data
+      year: d[yearType]
+    })).filter(d => d.pestle && d.year); // Filter out invalid data
 
-    // Group data by pestle and calculate mean year difference
+    // Group data by pestle and calculate mean year
     const groupedData = d3.rollups(
       parsedData,
-      v => d3.mean(v, d => d.yearDifference),
+      v => d3.mean(v, d => d.year),
       d => d.pestle
-    ).map(([key, value]) => ({ pestle: key, meanYearDifference: value }));
+    ).map(([key, value]) => ({ pestle: key, meanYear: value }));
 
     // Create scales
     const x = d3.scaleBand()
@@ -46,7 +47,7 @@ const YearChart = () => {
       .padding(0.1);
 
     const y = d3.scaleLinear()
-      .domain([0, d3.max(groupedData, d => d.meanYearDifference)]).nice()
+      .domain([d3.min(groupedData, d => d.meanYear), d3.max(groupedData, d => d.meanYear)]).nice()
       .range([height - margin.bottom, margin.top]);
 
     // Create axes
@@ -65,7 +66,7 @@ const YearChart = () => {
     // Draw line
     const line = d3.line()
       .x(d => x(d.pestle) + x.bandwidth() / 2)
-      .y(d => y(d.meanYearDifference));
+      .y(d => y(d.meanYear));
 
     svg.append("path")
       .datum(groupedData)
@@ -80,18 +81,43 @@ const YearChart = () => {
       .data(groupedData)
       .join("circle")
       .attr("cx", d => x(d.pestle) + x.bandwidth() / 2)
-      .attr("cy", d => y(d.meanYearDifference))
+      .attr("cy", d => y(d.meanYear))
       .attr("r", 5)
       .attr("fill", "steelblue")
       .append("title")  // Tooltip
-      .text(d => `Pestle: ${d.pestle}\nMean Year Difference: ${d.meanYearDifference.toFixed(2)}`);
+      .text(d => `Pestle: ${d.pestle}\nMean Year: ${d.meanYear.toFixed(0)}`);
 
     svg.append("g").call(xAxis);
     svg.append("g").call(yAxis);
 
-  }, [data]);
+  }, [data, yearType]);
 
-  return <svg ref={svgRef} width="800" height="400"></svg>;
+  return (
+    <div>
+      <div>
+        <h4>Filter:</h4>
+        <label>
+          <input
+            type="radio"
+            value="start_year"
+            checked={yearType === 'start_year'}
+            onChange={() => setYearType('start_year')}
+          />
+          Start Year    
+        </label>
+        <label>
+          <input
+            type="radio"
+            value="end_year"
+            checked={yearType === 'end_year'}
+            onChange={() => setYearType('end_year')}
+          />
+          End Year
+        </label>
+      </div>
+      <svg ref={svgRef} width="800" height="400"></svg>
+    </div>
+  );
 };
 
 export default YearChart;
